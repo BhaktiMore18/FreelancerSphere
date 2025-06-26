@@ -7,6 +7,7 @@
 - [Authentication Flow](./auth/auth_module.md)
 - [API Reference](./auth/auth_module.md/#jwt-token---what--why)
 - [Common Errors](./auth/auth_module.md/#common-errors)
+- [GitHub Workflows](./github_workflows/gh_workflows.md)
 
 ---
 
