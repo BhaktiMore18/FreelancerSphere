@@ -1,14 +1,14 @@
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+package com.fs.freelancersphere.controller;
+
+import com.fs.freelancersphere.model.User;
+import com.fs.freelancersphere.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+import org.springframework.stereotype.Service;
 import java.util.Map;
-
-import com.fs.freelancersphere.model.User; // adjust this path to your actual User class
-
 
 @RestController
 @RequestMapping("/api/auth")
@@ -18,15 +18,23 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
-        return ResponseEntity.ok(authService.register(user));
+    public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
+        String result = authService.register(user);
+        if (result.contains("already")) {
+            return ResponseEntity.badRequest().body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("email");
-        String password = credentials.get("password");
+    // Optional test route
+    @GetMapping("/test")
+    public String test() {
+        return "Backend is working!";
+    }
 
-        return ResponseEntity.ok(authService.login(email, password));
+     @PostMapping("/login")
+    public Map<String, String> loginUser(@RequestBody Map<String, String> userData) {
+        String token = authService.login(userData.get("email"), userData.get("password"));
+        return Map.of("token", token);
     }
 }

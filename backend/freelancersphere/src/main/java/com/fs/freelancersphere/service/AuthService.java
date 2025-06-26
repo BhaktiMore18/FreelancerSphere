@@ -1,11 +1,10 @@
-import org.springframework.stereotype.Service;
+package com.fs.freelancersphere.service;
+
+import com.fs.freelancersphere.model.User;
+import com.fs.freelancersphere.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.Optional;
-
-import com.fs.freelancersphere.model.User; // adjust this too
-import com.fs.freelancersphere.repository.UserRepository; // adjust if your package differs
-
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
@@ -16,28 +15,27 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String register(User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            return "User already exists";
-        }
+    @Autowired
+    private JwtService jwtService;
 
+    public String register(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            return "Email is already registered.";
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
-        return "User registered successfully";
+        return "User registered successfully.";
     }
-
+    
     public String login(String email, String password) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (userOpt.isEmpty()) return "User not found";
-
-        User user = userOpt.get();
-
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            return "Login successful"; // Here we can return JWT Token
-        } else {
-            return "Invalid credentials";
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
         }
+
+        return jwtService.generateToken(user.getEmail());
     }
+
 }

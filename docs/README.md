@@ -1,3 +1,15 @@
+## 📄 Sections
+
+- [Project Overview](#what-is-freelancersphere)
+- [Environment Setup](./env_setup/environmental_setup.md)
+- [Architecture](./backend_architecture/folder_structure.md)
+- [MongoDB Connection](./backend_architecture/mongodb_connection.md)
+- [Authentication Flow](./auth/auth_module.md)
+- [API Reference](./auth/auth_module.md/#jwt-token---what--why)
+- [Common Errors](./auth/auth_module.md/#common-errors)
+
+---
+
 ## What is FreelancerSphere
 
 A freelancing ecosystem where freelancers can:
@@ -37,4 +49,4 @@ A freelancing ecosystem where freelancers can:
 - Admin Panel(yet to be decided): Manage users, jobs, reports
 
 
-
+![modules_breakdown](freelancersphere_modules_breakdown.png)
