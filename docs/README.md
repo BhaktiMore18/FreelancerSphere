@@ -1,4 +1,4 @@
-## 📄 Sections
+## Sections
 
 - [Project Overview](#what-is-freelancersphere)
 - [Environment Setup](./env_setup/environmental_setup.md)
@@ -20,6 +20,8 @@ A freelancing ecosystem where freelancers can:
 - Get paid
 - Build reputation (ratings, reviews)
 
+--- 
+
 ## User Roles 
 ### Freelancers
     - Create profile
@@ -37,6 +39,8 @@ A freelancing ecosystem where freelancers can:
     - Hire/manage projects
     - Rate freelancers
 
+--- 
+
 ## Core Modules & features
 - Auth system: Signup/Login, JWT based auth
 - Freelancer Profile: Skills, bio, picture, portfolio
@@ -48,5 +52,11 @@ A freelancing ecosystem where freelancers can:
 - Rating & Reviews: After project completion
 - Admin Panel(yet to be decided): Manage users, jobs, reports
 
+---
 
-![modules_breakdown](freelancersphere_modules_breakdown.png)
+## Modules Breakdown
+<center>
+  <img src="./freelancersphere_modules_breakdown.png" width="300px" />
+</center>
+
+*Fig: FreelancerSphere Modules Breakdown*
