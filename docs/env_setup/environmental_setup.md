@@ -17,18 +17,42 @@
    git clone https://github.com/FreelancerSphere.git
    cd FreelancerSphere
   ```
-
-2. Create .env or application.properties
-Add the following:
+2. **Running the Frontend**
 ```bash
-spring.data.mongodb.uri=mongodb+srv://<username>:<password>@cluster0.mongodb.net/FreelanceSphere
+cd frontend
+npm install
+npm start
 ```
 
-3. Build and Run the project
+3. Running the Backend
 ```bash
+cd backend
 ./mvnw spring-boot:run
 ```
 
-Navigate to: http://localhost:8080
+3. Create .env or application.properties
+Add the following (Please modify the username, password, and cluster name to match your own configuration.):
+```bash
+mongodb+srv://<username>:<password>@<cluster-name>.<random-id>.mongodb.net/?retryWrites=true&w=majority
+```
 
-Your backend should be running here!
+Ensure MongoDB is connected correctly via application.properties.
+
+## Docker Setup
+Both backend and frontend are Dockerized.
+
+1. **Backend Docker Build and Run**
+```bash
+cd backend
+docker build -t bhaktimore05/freelancersphere-backend .
+docker run -p 8080:8080 bhaktimore05/freelancersphere-backend
+```
+
+2. **Frontend Docker Build and Run**
+```bash
+cd frontend
+docker build -t bhaktimore05/freelancersphere-frontend .
+docker -p 3000:3000 bhaktimore05/freelancersphere-frontend
+```
+
+Navigate to: http://localhost:8080 for backend! and http://localhost:3000 for frontend!
