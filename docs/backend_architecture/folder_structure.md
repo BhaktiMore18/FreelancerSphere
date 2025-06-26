@@ -1,6 +1,6 @@
 
 ##  Folder Structure (simplified)
-
+```md
 +---src
     \---main
         \---java
@@ -20,7 +20,7 @@
                 |       JwtUtil.java
                 |       JwtFilter.java
                 FreelancersphereApplication.java
-
+```
 ---
 
 ### Key Concepts
