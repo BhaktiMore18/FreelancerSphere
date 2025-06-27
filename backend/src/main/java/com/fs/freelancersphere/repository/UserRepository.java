@@ -1,6 +1,6 @@
 package com.fs.freelancersphere.repository;
 
-import com.fs.freelancersphere.model.User;
+import com.fs.freelancersphere.model.auth.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
