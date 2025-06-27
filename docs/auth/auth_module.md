@@ -140,6 +140,23 @@ JWT structure: `header.payload.signature`
 
 ---
 
+## JWT Authentication System
+- JWT created using `io.jsonwebtoken`.
+- `JWTService.java` is added to:
+     - Create token using email
+     - Validate and extract email from token
+- JWT is added in `Authorization` header as:
+```bash
+Authorization: Bearer <token_here>
+```
+## JwtFilter and Spring Security Integration
+- `JWTFilter.java` is created to intercept every request.
+- It validated tokens, extracts user, and sets Spring Security context.
+- `SecurityConfig.java` now uses `JwtFilter`instead of default login.
+- `UserDetailsService` is implemented via `CustomUserDetailsService.java`. 
+- It loads user by email form MongoDB.
+- Then wraps user into `CustomUserDetails` with role-based authorities.
+
 ## MongoDB Case Sensitivity Warning
 
 > MongoDB treats `FreelanceSphere` and `freelancesphere` as **two different databases**.
@@ -192,11 +209,26 @@ Used for:
 
 ---
 
+## User Registration and Login Validation
+- `UserRegistrationRequest.java`is created as a separate DTO (Data Transfer Object) for user registration.
+- Validation is added using `@NotBlank` and `@Email` annotations.
+- Passwords are hashed using **BCrypt**.
+- Users are assigned a `Role` (e.g., FREELANCER, ADMIN, etc).
+
+## Role-Based Access Control (RBAC)
+- `Role.java` enum (FREELANCER, CLIENT, ADMIN) is added.
+- `@PreAuthorize` checks are added on controller methods.
+- Only users with specific roles can access:
+   - `/api/auth/admin/dashboard` -> only `ADMIN`
+   - `/api/auth/freelancer/dashboard` -> only `FREELANCER`
+- `@EnableMethodSecurity` is used.
+- Role is stored in MongoDB and converted to `ROLE_` prefix using `CustomUserDetails.java`.
+
+
 ## Future Improvements
 
 * Refresh tokens
 * Logout functionality
-* Role-based access (admin vs freelancer)
 * Email verification / OTP
 * Swagger UI / OpenAPI docs
 
