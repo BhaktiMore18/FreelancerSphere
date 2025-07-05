@@ -6,19 +6,24 @@
         \---java
             \---com.fs.freelancersphere
                 +---config
-                |       AppConfig.java
                 |       SecurityConfig.java
                 +---controller
                 |       AuthController.java
                 +---model
+                |       Role.java
                 |       User.java
+                |       UserRegisterRequest.java
                 +---repository
                 |       UserRepository.java
                 +---service
                 |       AuthService.java
+                |       JwtService.java
                 +---security
-                |       JwtUtil.java
                 |       JwtFilter.java
+                |       CustomUserDetails.java
+                |       CustomUserDetailsService.java
+                +---exception
+                |       GlobalExceptionHandler.java
                 FreelancersphereApplication.java
 ```
 ---

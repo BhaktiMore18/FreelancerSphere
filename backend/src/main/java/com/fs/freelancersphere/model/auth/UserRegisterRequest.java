@@ -1,20 +1,11 @@
-package com.fs.freelancersphere.model;
-
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.fs.freelancersphere.model.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Document(collection = "users")
-public class User {
-    
-    @Id
-    private String id;
+public class UserRegisterRequest {
 
     @NotBlank(message = "Username is required")
     private String username;
@@ -25,4 +16,6 @@ public class User {
 
     @NotBlank(message = "Password is required")
     private String password;
+
+    private Role role;
 }
