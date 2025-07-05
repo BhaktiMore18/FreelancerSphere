@@ -11,6 +11,8 @@
 ---
 
 ## Steps
+- Spring-boot version used: 3.5.3
+- Spring version: 6.2.7
 
 1. **Clone the project**
    ```bash
