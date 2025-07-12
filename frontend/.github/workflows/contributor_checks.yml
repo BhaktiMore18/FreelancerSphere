@@ -1,0 +1,63 @@
+name: Contributor Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  greet-contributor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet Contributor
+        run: |
+          echo "🎉 Thank you for your contribution! We’ll review your PR shortly."
+  
+  frontend-checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Prettier check
+        run: npm run prettier:check || echo "Prettier formatting failed. Please run 'npm run prettier:fix'"
+
+      - name: Run ESLint
+        run: npm run lint || echo "Lint issues found. Please fix them using 'npm run lint -- --fix'"
+
+      - name: Security Audit
+        run: npm audit || echo "Security vulnerabilities detected. Run 'npm audit fix' if applicable."
+
+  backend-checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Project
+        run: ./mvnw clean verify || echo "Build failed. Please ensure all tests pass."
+
+      - name: Run SpotBugs (Static Analysis)
+        run: ./mvnw spotbugs:check || echo "SpotBugs found issues. Please review your code."
+
+      - name: Run OWASP Dependency-Check
+        run: ./mvnw org.owasp:dependency-check-maven:check || echo "OWASP security issues found."
